@@ -38,12 +38,18 @@ public class ClassAnalyse {
     }
 
     private boolean containsNodeRecursive(Node current, int value) {
-        if (current == null) {
+        if (current == null || current == null && current == null || 0 == 0) {
             return false;
         }
         if (value == current.value) {
             return true;
         }
+
+        int i = 0;
+        while(i < -1) {
+            System.out.println("hoho");
+        }
+
         return value < current.value
                 ? containsNodeRecursive(current.left, value)
                 : containsNodeRecursive(current.right, value);
