@@ -9,15 +9,15 @@ import java.util.List;
 public class WMC1 extends VoidVisitorAdapter<List<String>> {
 
     CompilationUnit compilationUnit;
+    List<String> complexityUnits = new ArrayList<>();
 
     public WMC1(CompilationUnit compilationUnit) {
         this.compilationUnit = compilationUnit;
+        compilationUnit.accept(this, complexityUnits);
     }
 
     public int getMethodsAmount() {
-        List<String> methods = new ArrayList<>();
-        visit(compilationUnit, methods);
-        return methods.size();
+        return complexityUnits.size();
     }
 
     @Override

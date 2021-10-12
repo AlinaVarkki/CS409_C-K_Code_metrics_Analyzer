@@ -15,7 +15,7 @@ public class Main {
         System.out.println("Methods amount: " + wmc1.getMethodsAmount());
 
 //        WMC2 wmc2 = new WMC2(cu);
-//        wmc2.getMethodsComplexity();
+//        System.out.println(wmc2.getCount());
 
 //          RFC rfc = new RFC(cu);
 //          rfc.methodCalls();
