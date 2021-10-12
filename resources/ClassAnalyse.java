@@ -37,7 +37,15 @@ public class ClassAnalyse {
         return current;
     }
 
+    int valuee = 6;
+    int va = 4;
+
+
     private boolean containsNodeRecursive(Node current, int value) {
+
+        value = 4;
+        va = 4;
+
         if (current == null || current == null && current == null || 0 == 0) {
             return false;
         }
@@ -46,7 +54,7 @@ public class ClassAnalyse {
         }
 
         int i = 0;
-        while(i < -1) {
+        while (i < -1) {
             System.out.println("hoho");
         }
 
