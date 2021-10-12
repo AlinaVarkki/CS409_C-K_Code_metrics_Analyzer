@@ -1,3 +1,4 @@
+import RFC.RFC;
 import WMC1.WMC1;
 import WMC2.WMC2;
 import com.github.javaparser.StaticJavaParser;
@@ -16,7 +17,11 @@ public class Main {
 //        WMC1 wmc1 = new WMC1(cu);
 //        System.out.println("Methods amount: " + wmc1.getMethodsAmount());
 
-        WMC2 wmc2 = new WMC2(cu);
-        wmc2.getMethodsComplexity();
+//        WMC2 wmc2 = new WMC2(cu);
+//        wmc2.getMethodsComplexity();
+
+          RFC rfc = new RFC(cu);
+          rfc.methodCalls();
+
     }
 }

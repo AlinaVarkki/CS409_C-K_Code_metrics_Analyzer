@@ -17,9 +17,17 @@ public class WMC2 {
     }
 
     public void getMethodsComplexity() {
+        complexityUnits.add("Default Decision");
         countIfStatements();
         countWhileStatements();
         countOrAndOperators();
+        countForStatements();
+        countForEachStatements();
+
+        //TODO remove forloop once confirmed correct output
+        for (int i = 0; i < complexityUnits.size(); i++) {
+            System.out.println("For statements and ForEach operators: " + complexityUnits.get(i));
+        }
         System.out.println("if statements and AndOr operators: " + complexityUnits.size());
     }
 
@@ -35,6 +43,16 @@ public class WMC2 {
 
     public void countOrAndOperators() {
         methodComplexityCounter = new AndOrCounter();
+        methodComplexityCounter.visit(compilationUnit, complexityUnits);
+    }
+
+    public void countForStatements() {
+        methodComplexityCounter = new ForStatementCounter();
+        methodComplexityCounter.visit(compilationUnit, complexityUnits);
+    }
+
+    public void countForEachStatements() {
+        methodComplexityCounter = new ForEachStatementCounter();
         methodComplexityCounter.visit(compilationUnit, complexityUnits);
     }
 
