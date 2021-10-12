@@ -1,14 +1,14 @@
 package RFC;
 
-import WMC1.MethodCollector;
-import WMC2.ForEachStatementCounter;
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitor;
+import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RFC {
+public class RFC extends VoidVisitorAdapter<List<String>> {
 
     CompilationUnit compilationUnit;
     VoidVisitor<List<String>> methodComplexityCounter;
@@ -20,7 +20,7 @@ public class RFC {
     }
 
     public void methodCalls() {
-        countStartingMethodStatements();
+        visit(compilationUnit, complexityUnits);
         countMethodCalls();
 
         for (int i =0; i< complexityUnits.size(); i++) {
@@ -40,13 +40,15 @@ public class RFC {
 //        return methods;
     }
 
-    public void countStartingMethodStatements() {
-        methodComplexityCounter = new MethodCollector();
-        methodComplexityCounter.visit(compilationUnit, complexityUnits);
-    }
 
     public void countMethodCalls() {
         methodComplexityCounter = new MethodCaller();
         methodComplexityCounter.visit(compilationUnit, complexityUnits);
+    }
+
+    @Override
+    public void visit(MethodDeclaration md, List<String> counter) {
+        super.visit(md, counter);
+        counter.add(md.getNameAsString());
     }
 }

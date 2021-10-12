@@ -1,12 +1,12 @@
-package WMC1;
-
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitor;
+import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WMC1 {
+public class WMC1 extends VoidVisitorAdapter<List<String>> {
 
     CompilationUnit compilationUnit;
 
@@ -16,10 +16,14 @@ public class WMC1 {
 
     public int getMethodsAmount() {
         List<String> methods = new ArrayList<>();
-        VoidVisitor<List<String>> methodsCounter = new MethodCollector();
-
-        methodsCounter.visit(compilationUnit, methods);
+        visit(compilationUnit, methods);
         return methods.size();
+    }
+
+    @Override
+    public void visit(MethodDeclaration md, List<String> counter) {
+        super.visit(md, counter);
+        counter.add(md.getNameAsString());
     }
 
 }
