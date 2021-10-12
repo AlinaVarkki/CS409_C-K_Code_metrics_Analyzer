@@ -5,20 +5,21 @@ import java.io.FileInputStream;
 
 public class Main {
 
-    private static final String FILE_PATH = "resources/ClassAnalyse.java";
+   // private static final String FILE_PATH = "resources/foxes-and-rabbits-graph/Simulator.java";
+      private static final String FILE_PATH = "resources/taxi-company-later-stage/CityGUI.java";
 
     public static void main(String[] args) throws Exception {
 
         CompilationUnit cu = StaticJavaParser.parse(new FileInputStream(FILE_PATH));
 
-        WMC1 wmc1 = new WMC1(cu);
-        System.out.println("Methods amount: " + wmc1.getMethodsAmount());
+//        WMC1 wmc1 = new WMC1(cu);
+//        System.out.println("Methods amount: " + wmc1.getMethodsAmount());
 
 //        WMC2 wmc2 = new WMC2(cu);
 //        System.out.println(wmc2.getCount());
 
-//          RFC rfc = new RFC(cu);
-//          rfc.methodCalls();
+          RFC rfc = new RFC(cu);
+          System.out.println(rfc.printMethodOutputs());
 
     }
 }
