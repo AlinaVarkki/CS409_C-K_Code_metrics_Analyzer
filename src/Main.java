@@ -17,10 +17,10 @@ public class Main {
 //        WMC2 wmc2 = new WMC2(cu);
 //        System.out.println(wmc2.getCount());
 
-//          RFC rfc = new RFC(cu);
-//          rfc.methodCalls();
+          RFC rfc = new RFC(cu);
+          rfc.printMethodOutputs();
 
-        LCOM lcom = new LCOM(cu);
+//        LCOM lcom = new LCOM(cu);
 
     }
 }
