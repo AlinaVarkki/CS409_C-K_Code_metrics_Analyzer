@@ -4,7 +4,6 @@ import com.github.javaparser.ast.stmt.ForEachStmt;
 import com.github.javaparser.ast.stmt.ForStmt;
 import com.github.javaparser.ast.stmt.IfStmt;
 import com.github.javaparser.ast.stmt.WhileStmt;
-import com.github.javaparser.ast.visitor.VoidVisitor;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 import java.util.ArrayList;
@@ -55,6 +54,5 @@ public class WMC2 extends VoidVisitorAdapter<List<String>> {
         super.visit(md, counter);
         counter.add(md.toString());
     }
-
 
 }
