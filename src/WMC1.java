@@ -32,10 +32,12 @@ import java.util.List;
         }
     }
 
+    @Override
     public void visit(ClassOrInterfaceDeclaration md, List<String> counter) {
             super.visit(md, counter);
     }
 
+    @Override
     public void visit(MethodDeclaration md, List<String> counter) {
         super.visit(md, counter);
         counter.add(md.getNameAsString());

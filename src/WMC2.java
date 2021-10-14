@@ -1,4 +1,5 @@
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.BinaryExpr;
 import com.github.javaparser.ast.stmt.*;
@@ -19,6 +20,11 @@ public class WMC2 extends VoidVisitorAdapter<List<String>> {
 
     public int getCount() {
         return complexityUnits.size();
+    }
+
+    @Override
+    public void visit(ClassOrInterfaceDeclaration md, List<String> counter) {
+        super.visit(md, counter);
     }
 
     @Override
