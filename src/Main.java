@@ -16,7 +16,7 @@ public class Main {
      * WMC/WMC Complex - City,CityGUI,Location,Passenger,PassengerSource,Vehicle
      *
      * RFC/CBO/LCOM - LogAnalyzer,LogEntry,LogfileCreator,LogfileReader,LoglineTokenizer
-     * WMC/WMC Complex - LogfileReader
+     * WMC/WMC Complex - LogfileReader,
      */
 
  //   private static final String FILE_PATH = "resources/Bank Example/MerchantBank.java";
