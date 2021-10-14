@@ -35,6 +35,7 @@ public class Main {
 
         WMC2 wmc2 = new WMC2(cu);
         System.out.println(wmc2.getCount());
+        //wmc2.getConstructor();
 //
 //          RFC rfc = new RFC(cu);
 //          rfc.printMethodOutputs();

@@ -1,10 +1,6 @@
 import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.body.AnnotationDeclaration;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
-import com.github.javaparser.ast.body.TypeDeclaration;
-import com.github.javaparser.ast.stmt.LocalClassDeclarationStmt;
-import com.github.javaparser.ast.type.ClassOrInterfaceType;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 import java.util.ArrayList;
@@ -24,12 +20,6 @@ import java.util.List;
     public int getMethodsAmount() {
         methodsAm = complexityUnits.size();
         return methodsAm;
-    }
-
-    public void classList() {
-        for (int i =0; i< complexityUnits.size(); i++) {
-            System.out.println(complexityUnits.get(i));
-        }
     }
 
     @Override

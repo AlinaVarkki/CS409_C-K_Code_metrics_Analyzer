@@ -1,5 +1,6 @@
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.BinaryExpr;
 import com.github.javaparser.ast.stmt.*;
@@ -22,6 +23,12 @@ public class WMC2 extends VoidVisitorAdapter<List<String>> {
         return complexityUnits.size();
     }
 
+//    public void getConstructor() {
+//        for (int i =0; i < complexityUnits.size(); i++) {
+//            System.out.println("Constructor " + complexityUnits.get(i));
+//        }
+//    }
+
     @Override
     public void visit(ClassOrInterfaceDeclaration md, List<String> counter) {
         super.visit(md, counter);
@@ -33,43 +40,49 @@ public class WMC2 extends VoidVisitorAdapter<List<String>> {
         counter.add(md.getNameAsString());
     }
 
+//    @Override
+//    public void visit(ConstructorDeclaration md, List<String> counter) {
+//        super.visit(md, counter);
+//        counter.add(md.getNameAsString());
+//    }
+
     @Override
     public void visit(IfStmt md, List<String> counter) {
         super.visit(md, counter);
         counter.add(md.toString());
     }
 
-    @Override
-    public void visit(WhileStmt md, List<String> counter) {
-        super.visit(md, counter);
-        counter.add(md.toString());
-    }
-
-    @Override
-    public void visit(BinaryExpr md, List<String> counter) {
-        super.visit(md, counter);
-        String currOperator = md.getOperator().toString();
-
-        if (currOperator.equals("AND") || currOperator.equals("OR")) counter.add(md.toString());
-    }
-
-    @Override
-    public void visit(ForEachStmt md, List<String> counter) {
-        super.visit(md, counter);
-        counter.add(md.toString());
-    }
-
-    @Override
-    public void visit(ForStmt md, List<String> counter) {
-        super.visit(md, counter);
-        counter.add(md.toString());
-    }
-
-    @Override
-    public void visit(TryStmt md, List<String> counter) {
-        super.visit(md, counter);
-        counter.add(md.toString());
-    }
+//    @Override
+//    public void visit(WhileStmt md, List<String> counter) {
+//        super.visit(md, counter);
+//        counter.add(md.toString());
+//    }
+//
+//    @Override
+//    public void visit(BinaryExpr md, List<String> counter) {
+//        super.visit(md, counter);
+//        String currOperator = md.getOperator().toString();
+//
+//        if (currOperator.equals("AND") || currOperator.equals("OR")) counter.add(md.toString());
+//    }
+//
+//    @Override
+//    public void visit(ForEachStmt md, List<String> counter) {
+//        super.visit(md, counter);
+//        counter.add(md.toString());
+//    }
+//
+//    @Override
+//    public void visit(ForStmt md, List<String> counter) {
+//        super.visit(md, counter);
+//        counter.add(md.toString());
+//    }
+//
+//    @Override
+//    public void visit(TryStmt md, List<String> counter) {
+//        super.visit(md, counter);
+//        counter.add(md.toString());
+//    }
 
 
 }
