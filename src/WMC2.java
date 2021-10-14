@@ -1,10 +1,7 @@
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.BinaryExpr;
-import com.github.javaparser.ast.stmt.ForEachStmt;
-import com.github.javaparser.ast.stmt.ForStmt;
-import com.github.javaparser.ast.stmt.IfStmt;
-import com.github.javaparser.ast.stmt.WhileStmt;
+import com.github.javaparser.ast.stmt.*;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 import java.util.ArrayList;
@@ -61,5 +58,12 @@ public class WMC2 extends VoidVisitorAdapter<List<String>> {
         super.visit(md, counter);
         counter.add(md.toString());
     }
+
+    @Override
+    public void visit(TryStmt md, List<String> counter) {
+        super.visit(md, counter);
+        counter.add(md.toString());
+    }
+
 
 }

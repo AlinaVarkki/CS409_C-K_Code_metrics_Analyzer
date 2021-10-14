@@ -1,4 +1,5 @@
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
@@ -14,14 +15,9 @@ public class RFC extends VoidVisitorAdapter<List<String>> {
 
     public RFC(CompilationUnit compilationUnit) {
         this.compilationUnit = compilationUnit;
-        compilationUnit.accept(this, complexityUnits);
-        updateMethodOutput();
-    }
 
-    @Override
-    public void visit(MethodCallExpr md, List<String> counter) {
-        super.visit(md, counter);
-        counter.add(md.getNameAsString());
+        compilationUnit.accept(this, complexityUnits);
+        //updateMethodOutput();
     }
 
     @Override
@@ -30,20 +26,37 @@ public class RFC extends VoidVisitorAdapter<List<String>> {
         counter.add(md.getNameAsString());
     }
 
-    private void updateMethodOutput() {
-        for (String complexityUnit : complexityUnits) {
-            if (!refinedComplexityUnits.contains(complexityUnit)) {
-                refinedComplexityUnits.add(complexityUnit);
-            }
+    @Override
+    public void visit(MethodCallExpr md, List<String> counter) {
+        super.visit(md, counter);
+        if (counter.contains(md.getNameAsString())) {
+            counter.add(md.getNameAsString());
         }
     }
 
     public void printMethodOutputs() {
         System.out.println("Methods + MethodCalls :");
-        for (String refinedComplexityUnit : refinedComplexityUnits) {
+        for (String refinedComplexityUnit : complexityUnits) {
             System.out.println(refinedComplexityUnit);
         }
         System.out.println(" ");
-        System.out.println("Total : " + refinedComplexityUnits.size());
+        System.out.println("Total : " + complexityUnits.size());
     }
+
+//    private void updateMethodOutput() {
+//        for (String complexityUnit : complexityUnits) {
+//            if (!refinedComplexityUnits.contains(complexityUnit)) {
+//                refinedComplexityUnits.add(complexityUnit);
+//            }
+//        }
+//    }
+
+//    public void printMethodOutputs() {
+//        System.out.println("Methods + MethodCalls :");
+//        for (String refinedComplexityUnit : refinedComplexityUnits) {
+//            System.out.println(refinedComplexityUnit);
+//        }
+//        System.out.println(" ");
+//        System.out.println("Total : " + refinedComplexityUnits.size());
+//    }
 }
