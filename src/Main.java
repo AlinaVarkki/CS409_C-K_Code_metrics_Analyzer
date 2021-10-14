@@ -20,18 +20,19 @@ public class Main {
      */
 
  //   private static final String FILE_PATH = "resources/Bank Example/MerchantBank.java";
-//    private static final String FILE_PATH = "resources/foxes-and-rabbits-graph/SimulatorView.java";
+    private static final String FILE_PATH = "resources/foxes-and-rabbits-graph/GraphView.java";
  //     private static final String FILE_PATH = "resources/taxi-company-later-stage/Vehicle.java";
-    private static final String FILE_PATH = "resources/weblog-analyzer/LoglineTokenizer.java";
+    //private static final String FILE_PATH = "resources/weblog-analyzer/LogfileReader.java";
 
 
 
     public static void main(String[] args) throws Exception {
 
         CompilationUnit cu = StaticJavaParser.parse(new FileInputStream(FILE_PATH));
-//
-//        WMC1 wmc1 = new WMC1(cu);
-//        System.out.println("Methods amount: " + wmc1.getMethodsAmount());
+
+        WMC1 wmc1 = new WMC1(cu);
+        System.out.println("Methods amount: " + wmc1.getMethodsAmount());
+        wmc1.classList();
 //
 //        WMC2 wmc2 = new WMC2(cu);
 //        System.out.println(wmc2.getCount());
@@ -42,7 +43,7 @@ public class Main {
 //          CBO cbo = new CBO(cu);
 //          cbo.printMethodOutputs();
 
-        LCOM lcom = new LCOM(cu);
+//        LCOM lcom = new LCOM(cu);
 
     }
 }
