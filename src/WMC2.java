@@ -16,6 +16,7 @@ public class WMC2 extends VoidVisitorAdapter<List<String>> {
 
     public WMC2(CompilationUnit compilationUnit) {
         this.compilationUnit = compilationUnit;
+        complexityUnits.add("Default Decision");
         compilationUnit.accept(this, complexityUnits);
     }
 
