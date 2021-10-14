@@ -1,4 +1,5 @@
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.BinaryExpr;
 import com.github.javaparser.ast.stmt.ForEachStmt;
 import com.github.javaparser.ast.stmt.ForStmt;
@@ -16,12 +17,17 @@ public class WMC2 extends VoidVisitorAdapter<List<String>> {
 
     public WMC2(CompilationUnit compilationUnit) {
         this.compilationUnit = compilationUnit;
-        complexityUnits.add("Default Decision");
         compilationUnit.accept(this, complexityUnits);
     }
 
     public int getCount() {
         return complexityUnits.size();
+    }
+
+    @Override
+    public void visit(MethodDeclaration md, List<String> counter) {
+        super.visit(md, counter);
+        counter.add(md.getNameAsString());
     }
 
     @Override

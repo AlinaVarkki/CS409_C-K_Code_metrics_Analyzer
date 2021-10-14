@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 
 public class Main {
 
-    private static final String FILE_PATH = "resources/foxes-and-rabbits-graph/Animal.java";
+    private static final String FILE_PATH = "resources/Bank Example/MerchantBank.java";
 //    private static final String FILE_PATH = "resources/foxes-and-rabbits-graph/Field.java";
 
     public static void main(String[] args) throws Exception {
