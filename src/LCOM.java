@@ -18,28 +18,27 @@ public class LCOM extends VoidVisitorAdapter {
     public LCOM(CompilationUnit compilationUnit) {
         this.compilationUnit = compilationUnit;
         compilationUnit.accept(this, null);
-        System.out.println("LCOM IS " + getCommonAccessMethodsAmount());
     }
 
     public int getCommonAccessMethodsAmount() {
 
-        int allPairs = methodBodies.size() * methodBodies.size();
+        int allPairs = (methodBodies.size() * (methodBodies.size() - 1)) / 2;
         int sameVarAccessPairs = 0;
 
         for (int i = 0; i < methodBodies.size(); i++) {
             for (int j = i + 1; j < methodBodies.size(); j++) {
                 for (VariableDeclarator var : allVariables) {
                     if (methodBodies.get(i).contains(var.getNameAsString()) && methodBodies.get(j).contains(var.getNameAsString())) {
-//                        System.out.println("matching!!! " + var.getNameAsString() + " " + i + " " + j);
                         sameVarAccessPairs++;
+                        break;
                     }
                 }
             }
         }
 
-        int lcom = allPairs - sameVarAccessPairs;
+        int lcom = allPairs - 2 * sameVarAccessPairs;
 
-        return lcom;
+        return (lcom > -1) ? lcom: 0;
     }
 
     public void visit(FieldDeclaration vd, Object arg) {
@@ -60,7 +59,7 @@ public class LCOM extends VoidVisitorAdapter {
             for (Statement stmt : bStmt.getStatements()) {
                 //break down every statement and make it a set of words
                 //words should be without special characters
-                String[] terms = stmt.toString().split("[\\s;,()]+");
+                String[] terms = stmt.toString().split("[\\s;,().]+");
                 for (String s : terms) currWords.add(s);
             }
         });
