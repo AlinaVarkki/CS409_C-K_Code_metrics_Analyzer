@@ -21,13 +21,13 @@ public class CBO extends VoidVisitorAdapter<List<String>> {
         counter.add(md.getNameAsString());
     }
 
-    public void printMethodOutputs() {
-        System.out.println("Methods + MethodCalls :");
+    public int getMethodOutputs() {
+//        System.out.println("Methods + MethodCalls :");
         for (String complexityUnit : complexityUnits) {
-            System.out.println(complexityUnit);
+//            System.out.println(complexityUnit);
         }
-        System.out.println(" ");
-        System.out.println("Total : " + complexityUnits.size());
+
+        return complexityUnits.size();
     }
 
 }

@@ -69,20 +69,20 @@ public class RFC extends VoidVisitorAdapter {
         }
     }
 
-    public void printMethodOutputs() {
-        System.out.println("Methods :");
+    public int getMethodOutputs() {
+//        System.out.println("Methods :");
         for (String refinedComplexityUnit : complexityUnitsMethods) {
-            System.out.println(refinedComplexityUnit);
+//            System.out.println(refinedComplexityUnit);
         }
-        System.out.println("MethodCalls :");
+//        System.out.println("MethodCalls :");
         for (String complexityUnit : complexityUnitsMethodCalls) {
-            System.out.println(complexityUnit);
+//            System.out.println(complexityUnit);
         }
-        System.out.println("Refined Collective :");
+//        System.out.println("Refined Collective :");
         for (String refinedComplexityUnit : refinedComplexityUnits) {
-            System.out.println(refinedComplexityUnit);
+//            System.out.println(refinedComplexityUnit);
         }
-        System.out.println(" ");
-        System.out.println("Total : " + refinedComplexityUnits.size());
+
+        return refinedComplexityUnits.size();
     }
 }
