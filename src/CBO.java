@@ -3,31 +3,32 @@ import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
-public class CBO extends VoidVisitorAdapter<List<String>> {
+public class CBO extends VoidVisitorAdapter {
 
     CompilationUnit compilationUnit;
     List<String> complexityUnits = new ArrayList<>();
+    String className;
 
     public CBO(CompilationUnit compilationUnit) {
         this.compilationUnit = compilationUnit;
         compilationUnit.accept(this, complexityUnits);
     }
 
-    @Override
-    public void visit(ClassOrInterfaceDeclaration md, List<String> counter) {
-        super.visit(md, counter);
-        counter.add(md.getNameAsString());
+    public String getClassName() {
+        return className;
     }
 
-    public int getMethodOutputs() {
-//        System.out.println("Methods + MethodCalls :");
-        for (String complexityUnit : complexityUnits) {
-//            System.out.println(complexityUnit);
-        }
+    public HashSet<String> getDependedClasses() {
+        return new HashSet<>();
+    }
 
-        return complexityUnits.size();
+    @Override
+    public void visit(ClassOrInterfaceDeclaration n, Object arg){
+        className = n.getNameAsString();
+        super.visit(n, arg);
     }
 
 }

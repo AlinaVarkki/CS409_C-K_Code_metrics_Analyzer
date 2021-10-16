@@ -7,34 +7,43 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class CKFolderPrinter {
 
     private String FOLDER_PATH;
+    Map<String, HashSet<String>> classDependedClasses = new HashMap<>();
+    List<String> classes = new ArrayList<>();
 
     public CKFolderPrinter(String FOLDER_PATH) {
         this.FOLDER_PATH = FOLDER_PATH;
     }
 
-    public void getCKMeasurementsFolder() {
+    public void getCKMeasurementsFolder() throws FileNotFoundException {
         try (Stream<Path> paths = Files.walk(Paths.get(FOLDER_PATH))) {
             paths.filter(Files::isRegularFile)
                     .forEach(file -> {
                         if (file.toString().endsWith(".java")) {
-                            try {
-                                getCKMeasurementsFile(file.toString());
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                            }
+                            classes.add(file.toString());
                         }
                     });
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        for (String className: classes) addDependedClasses(className);
+
+        for (String className: classes) getCKMeasurementsFile(className);
     }
 
-    public static void getCKMeasurementsFile(String filePath) throws FileNotFoundException {
+    public void addDependedClasses(String filePath) throws FileNotFoundException {
+        CompilationUnit cu = StaticJavaParser.parse(new FileInputStream(filePath));
+        CBO cbo = new CBO(cu);
+        classDependedClasses.put(cbo.getClassName(), cbo.getDependedClasses());
+    }
+
+    public void getCKMeasurementsFile(String filePath) throws FileNotFoundException {
         StringBuilder result = new StringBuilder();
         CompilationUnit cu = StaticJavaParser.parse(new FileInputStream(filePath));
 
@@ -50,7 +59,7 @@ public class CKFolderPrinter {
         result.append("RFC: " + rfc.getMethodOutputs() + "\n");
 
         CBO cbo = new CBO(cu);
-        result.append("CBO: " + cbo.getMethodOutputs() + "\n");
+        result.append("CBO: " + cbo.getClassName() + "\n");
 
         LCOM lcom = new LCOM(cu);
         result.append("LCOM: " + lcom.getCommonAccessMethodsAmount() + "\n");

@@ -1,11 +1,6 @@
-import com.github.javaparser.StaticJavaParser;
-import com.github.javaparser.ast.CompilationUnit;
-
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class Main {
-
 
     /**
      * RFC/CBO/LCOM - Animal,Counter,Field,FieldStats,Fox,GraphView,GridView,Location,Rabbit,Randomizer,Simulator,SimulatorView
@@ -20,19 +15,10 @@ public class Main {
      * WMC Complex - LogfileReader,
      */
 
-    //private static final String FOLDER_PATH = "resources/foxes-and-rabbits-graph/";
-    private static final String FILE_PATH = "resources/weblog-analyzer/LogfileReader.java";
+    private static final String FOLDER_PATH = "resources/Bank Example";
 
-
-    //public static void main(String[] args) {
-        public static void main(String[] args) throws FileNotFoundException {
-//        CKFolderPrinter ckFolderPrinter = new CKFolderPrinter(FOLDER_PATH);
-//        ckFolderPrinter.getCKMeasurementsFolder();
-
-        CompilationUnit cu = StaticJavaParser.parse(new FileInputStream(FILE_PATH));
-        WMC2 wmc2 = new WMC2(cu);
-        wmc2.getDecisions();
-
-
+    public static void main(String[] args) throws FileNotFoundException {
+        CKFolderPrinter ckFolderPrinter = new CKFolderPrinter(FOLDER_PATH);
+        ckFolderPrinter.getCKMeasurementsFolder();
     }
 }
