@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RFC extends VoidVisitorAdapter<List<String>> {
-//public class RFC extends VoidVisitorAdapter {
 
     CompilationUnit compilationUnit;
     List<String> complexityUnitsMethods = new ArrayList<>();
@@ -16,7 +15,6 @@ public class RFC extends VoidVisitorAdapter<List<String>> {
 
     public RFC(CompilationUnit compilationUnit) {
         this.compilationUnit = compilationUnit;
-        //compilationUnit.accept(this, (Object)null);
         compilationUnit.accept(this, complexityUnitsMethods);
         updateMethodOutput();
     }
@@ -51,23 +49,9 @@ public class RFC extends VoidVisitorAdapter<List<String>> {
     }
 
     public int getMethodOutputs() {
-        for (String complexityUnit : complexityUnitsMethods) {
-            System.out.println("complexityUnitsMethods " + complexityUnit);
-        }
+//        for (String complexityUnit : complexityUnitsMethods) {
+//            System.out.println("complexityUnitsMethods " + complexityUnit);
+//        }
         return complexityUnitsMethods.size();
     }
-
-    //    @Override
-//    public void visit(MethodCallExpr md, Object arg) {
-//        super.visit(md, arg);
-//       if (!complexityUnitsMethodCalls.contains(md.getNameAsString())) {
-//           complexityUnitsMethodCalls.add(md.getNameAsString());
-//       }
-//    }
-
-//    @Override
-//    public void visit(MethodDeclaration md, List<String> counter) {
-//        super.visit(md, counter);
-//        counter.add(md.getNameAsString());
-//    }
 }

@@ -10,23 +10,21 @@ import java.util.List;
 
     CompilationUnit compilationUnit;
     List<String> complexityUnits = new ArrayList();
-    int methodsAm;
 
     public WMC1(CompilationUnit compilationUnit) {
         this.compilationUnit = compilationUnit;
         compilationUnit.accept(this, this.complexityUnits);
     }
 
-    public int getMethodsAmount() {
-        methodsAm = complexityUnits.size();
-        return methodsAm;
-    }
+    public int getMethodsAmount() { return complexityUnits.size(); }
 
+    //Considers Inner Class's Methods
     @Override
     public void visit(ClassOrInterfaceDeclaration md, List<String> counter) {
             super.visit(md, counter);
     }
 
+    //Collects All Methods
     @Override
     public void visit(MethodDeclaration md, List<String> counter) {
         super.visit(md, counter);
