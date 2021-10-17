@@ -20,7 +20,7 @@ public class Main {
      * WMC Complex - LogfileReader,
      */
 
-    private static final String FOLDER_PATH = "resources/Bank Example/";
+    private static final String FOLDER_PATH = "resources/weblog-analyzer/";
 //    private static final String FILE_PATH = "resources/weblog-analyzer/LogfileReader.java";
 
 

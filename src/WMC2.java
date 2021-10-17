@@ -164,5 +164,11 @@ public class WMC2 extends VoidVisitorAdapter<List<String>> {
         complexityUnits.add(md.toString());
     }
 
+    @Override
+    public void visit(SwitchStmt md, List<String> counter) {
+        super.visit(md, counter);
+        complexityUnits.add(md.toString());
+    }
+
 
 }
