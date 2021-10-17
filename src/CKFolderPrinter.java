@@ -7,34 +7,40 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class CKFolderPrinter {
 
     private String FOLDER_PATH;
+    List<String> classes = new ArrayList<>();
+    Map<String, Integer> classCBO = new HashMap<>();
+    Map<String, String> fileClass = new HashMap<>();
 
     public CKFolderPrinter(String FOLDER_PATH) {
         this.FOLDER_PATH = FOLDER_PATH;
     }
 
-    public void getCKMeasurementsFolder() {
+    public void getCKMeasurementsFolder() throws FileNotFoundException {
         try (Stream<Path> paths = Files.walk(Paths.get(FOLDER_PATH))) {
             paths.filter(Files::isRegularFile)
                     .forEach(file -> {
                         if (file.toString().endsWith(".java")) {
-                            try {
-                                getCKMeasurementsFile(file.toString());
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                            }
+                            classes.add(file.toString());
                         }
                     });
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        CBOCounter cboCounter = new CBOCounter(classes);
+        classCBO = cboCounter.getCBOMap();
+        fileClass = cboCounter.getFileClassMap();
+
+        for (String className : classes) getCKMeasurementsFile(className);
     }
 
-    public static void getCKMeasurementsFile(String filePath) throws FileNotFoundException {
+    public void getCKMeasurementsFile(String filePath) throws FileNotFoundException {
         StringBuilder result = new StringBuilder();
         CompilationUnit cu = StaticJavaParser.parse(new FileInputStream(filePath));
 
@@ -49,11 +55,13 @@ public class CKFolderPrinter {
         RFC rfc = new RFC(cu);
         result.append("RFC: " + rfc.getMethodOutputs() + "\n");
 
-        CBO cbo = new CBO(cu);
-        result.append("CBO: " + cbo.getMethodOutputs() + "\n");
 
         LCOM lcom = new LCOM(cu);
         result.append("LCOM: " + lcom.getCommonAccessMethodsAmount() + "\n");
+
+        String cboS = (classCBO.containsKey(fileClass.get(filePath))) ? "CBO: " + classCBO.get(fileClass.get(filePath)) + "\n" : "CBO: " + 0 + "\n";
+
+        result.append(cboS);
 
         System.out.println(result);
     }
