@@ -21,9 +21,12 @@ public class CBOCounter {
         for (String className : classes) addDependedClasses(className);
 
         for (String className : classDependedClasses.keySet()) {
-            classCBO.put(className, classCBO.getOrDefault(className, 0) + classDependedClasses.get(className).size());
+            for (String s : classDependedClasses.get(className)) {
+                if (classDependedClasses.containsKey(s))
+                    classCBO.put(className, classCBO.getOrDefault(className, 0) + 1);
+            }
             for (String depClass : classDependedClasses.get(className)) {
-                if(classDependedClasses.containsKey(depClass) && !classDependedClasses.get(depClass).contains(className)) {
+                if (classDependedClasses.containsKey(depClass) && !classDependedClasses.get(depClass).contains(className)) {
                     classCBO.put(depClass, classCBO.getOrDefault(depClass, 0) + 1);
                 }
             }
@@ -39,6 +42,10 @@ public class CBOCounter {
     }
 
     public Map<String, Integer> getCBOMap() {
+//        for (String s : classCBO.keySet()) {
+//            System.out.println(s + " " + classCBO.get(s));
+//        }
+
         return classCBO;
     }
 

@@ -37,9 +37,7 @@ public class CKFolderPrinter {
         classCBO = cboCounter.getCBOMap();
         fileClass = cboCounter.getFileClassMap();
 
-//        for (String className : classCBO.keySet()) System.out.println(className + " " + classCBO.get(className));
-
-        for (String className: classes) getCKMeasurementsFile(className);
+        for (String className : classes) getCKMeasurementsFile(className);
     }
 
     public void getCKMeasurementsFile(String filePath) throws FileNotFoundException {
@@ -57,10 +55,13 @@ public class CKFolderPrinter {
         RFC rfc = new RFC(cu);
         result.append("RFC: " + rfc.getMethodOutputs() + "\n");
 
-        result.append("CBO: " + classCBO.get(fileClass.get(filePath)) + "\n");
 
         LCOM lcom = new LCOM(cu);
         result.append("LCOM: " + lcom.getCommonAccessMethodsAmount() + "\n");
+
+        String cboS = (classCBO.containsKey(fileClass.get(filePath))) ? "CBO: " + classCBO.get(fileClass.get(filePath)) + "\n" : "CBO: " + 0 + "\n";
+
+        result.append(cboS);
 
         System.out.println(result);
     }
