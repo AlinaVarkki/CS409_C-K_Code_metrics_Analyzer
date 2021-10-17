@@ -48,10 +48,5 @@ public class RFC extends VoidVisitorAdapter<List<String>> {
         }
     }
 
-    public int getMethodOutputs() {
-//        for (String complexityUnit : complexityUnitsMethods) {
-//            System.out.println("complexityUnitsMethods " + complexityUnit);
-//        }
-        return complexityUnitsMethods.size();
-    }
+    public int getMethodOutputs() { return complexityUnitsMethods.size();}
 }
