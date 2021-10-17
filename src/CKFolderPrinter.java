@@ -13,8 +13,9 @@ import java.util.stream.Stream;
 public class CKFolderPrinter {
 
     private String FOLDER_PATH;
-    Map<String, HashSet<String>> classDependedClasses = new HashMap<>();
     List<String> classes = new ArrayList<>();
+    Map<String, Integer> classCBO = new HashMap<>();
+    Map<String, String> fileClass = new HashMap<>();
 
     public CKFolderPrinter(String FOLDER_PATH) {
         this.FOLDER_PATH = FOLDER_PATH;
@@ -32,15 +33,13 @@ public class CKFolderPrinter {
             e.printStackTrace();
         }
 
-        for (String className: classes) addDependedClasses(className);
+        CBOCounter cboCounter = new CBOCounter(classes);
+        classCBO = cboCounter.getCBOMap();
+        fileClass = cboCounter.getFileClassMap();
+
+//        for (String className : classCBO.keySet()) System.out.println(className + " " + classCBO.get(className));
 
         for (String className: classes) getCKMeasurementsFile(className);
-    }
-
-    public void addDependedClasses(String filePath) throws FileNotFoundException {
-        CompilationUnit cu = StaticJavaParser.parse(new FileInputStream(filePath));
-        CBO cbo = new CBO(cu);
-        classDependedClasses.put(cbo.getClassName(), cbo.getDependedClasses());
     }
 
     public void getCKMeasurementsFile(String filePath) throws FileNotFoundException {
@@ -58,8 +57,7 @@ public class CKFolderPrinter {
         RFC rfc = new RFC(cu);
         result.append("RFC: " + rfc.getMethodOutputs() + "\n");
 
-        CBO cbo = new CBO(cu);
-        result.append("CBO: " + cbo.getClassName() + "\n");
+        result.append("CBO: " + classCBO.get(fileClass.get(filePath)) + "\n");
 
         LCOM lcom = new LCOM(cu);
         result.append("LCOM: " + lcom.getCommonAccessMethodsAmount() + "\n");
