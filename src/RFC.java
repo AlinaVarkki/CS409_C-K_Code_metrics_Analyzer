@@ -1,5 +1,6 @@
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
@@ -37,6 +38,13 @@ public class RFC extends VoidVisitorAdapter<List<String>> {
     public void visit(MethodCallExpr md, List<String> counter) {
         super.visit(md, counter);
         complexityUnitsMethodCalls.add(md.getNameAsString());
+    }
+
+    //Collects All Constructors
+    @Override
+    public void visit(ConstructorDeclaration md, List<String> counter) {
+        super.visit(md, counter);
+        counter.add(md.getNameAsString());
     }
 
     //Checks Class Methods Don't Include Calls To Themselves (Removes Duplicate Method Calls)

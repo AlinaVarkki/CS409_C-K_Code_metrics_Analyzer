@@ -1,5 +1,6 @@
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.BinaryExpr;
 import com.github.javaparser.ast.stmt.*;
@@ -30,6 +31,13 @@ public class WMC2 extends VoidVisitorAdapter<List<String>> {
     //Collects All Methods
     @Override
     public void visit(MethodDeclaration md, List<String> counter) {
+        super.visit(md, counter);
+        complexityUnits.add(md.getNameAsString());
+    }
+
+    //Collects All Constructors
+    @Override
+    public void visit(ConstructorDeclaration md, List<String> counter) {
         super.visit(md, counter);
         complexityUnits.add(md.getNameAsString());
     }
